@@ -12,3 +12,30 @@ cursor = conn.cursor()
 # Curso
 # Ano de Ingresso
 
+# Criação da tabela
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Estudantes (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    Curso TEXT NOT NULL,
+    AnoIngresso INTEGER
+);
+""")
+
+# Lista de tuplas para registrar os estudantes
+estudantes = [
+    ("Ana Silva", "Computação", 2019),
+    ("Pedro Mendes", "Física", 2021),
+    ("Carla Souza", "Computação", 2020),
+    ("João Alves", "Matemática", 2018),
+    ("Maria Oliveira", "Química", 2022)
+]
+
+# Insere vários registros de uma vez.
+# Ele toma uma consulta SQL e uma lista de tuplas como parâmetros.
+cursor.executemany("""
+INSERT INTO Estudantes (Nome, Curso, AnoIngresso)
+VALUES (?, ?, ?);
+""", estudantes)
+
+conn.commit()
