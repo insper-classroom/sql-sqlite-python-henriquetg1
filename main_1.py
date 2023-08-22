@@ -40,7 +40,7 @@ estudantes = [
 # """, estudantes)
 
 # Filtragem dos estudantes que ingressaram entre 2019 e 2020 (inclusive)
-cursor.execute("SELECT * FROM Estudantes WHERE (AnoIngresso = 2019 or AnoIngresso = 2020)")
+cursor.execute("SELECT * FROM Estudantes WHERE (AnoIngresso >= 2019 and AnoIngresso <= 2020)")
 print(cursor.fetchall())
 conn.commit()
 
