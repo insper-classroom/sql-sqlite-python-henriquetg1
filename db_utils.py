@@ -3,7 +3,7 @@ import sqlite3
 # Funções
 
 def filtra_por_ano_de_ingresso(conn, cursor, ano1, ano2):
-    query = "SELECT * FROM Estudantes WHERE (AnoIngresso >= ? and AnoIngresso <= ?))"
+    query = "SELECT * FROM Estudantes WHERE (AnoIngresso >= ? and AnoIngresso <= ?)"
 
     cursor.execute(query, (ano1, ano2))
     print(cursor.fetchall())
