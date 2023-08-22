@@ -33,9 +33,30 @@ estudantes = [
 
 # Insere vários registros de uma vez.
 # Ele toma uma consulta SQL e uma lista de tuplas como parâmetros.
-cursor.executemany("""
-INSERT INTO Estudantes (Nome, Curso, AnoIngresso)
-VALUES (?, ?, ?);
-""", estudantes)
+###
+# cursor.executemany("""
+# INSERT INTO Estudantes (Nome, Curso, AnoIngresso)
+# VALUES (?, ?, ?);
+# """, estudantes)
 
+# Filtragem dos estudantes que ingressaram entre 2019 e 2020 (inclusive)
+cursor.execute("SELECT * FROM Estudantes WHERE (AnoIngresso = 2019 or AnoIngresso = 2020)")
+print(cursor.fetchall())
+conn.commit()
+
+# Atualização do Ano de Ingresso do aluno Pedro Mendes
+cursor.execute("UPDATE Estudantes SET AnoIngresso = 2023 WHERE Nome = 'Pedro Mendes'")
+conn.commit()
+
+# Apaga o estudante de ID = 1 da tabela Estudantes
+cursor.execute("DELETE FROM Estudantes WHERE ID = 1")
+conn.commit()
+
+# Filtragem dos estudantes que ingressaram depois de 2019 cujo curso é Computação
+cursor.execute("SELECT * FROM Estudantes WHERE AnoIngresso > 2019 AND Curso = 'Computação'")
+print(cursor.fetchall())
+conn.commit()
+
+# Atualização do Ano de Ingresso para 2018 de todos os alunos que cursam Computação
+cursor.execute("UPDATE Estudantes SET AnoIngresso = 2018 WHERE Curso = 'Computação'")
 conn.commit()
