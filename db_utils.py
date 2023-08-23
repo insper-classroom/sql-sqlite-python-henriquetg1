@@ -2,6 +2,26 @@ import sqlite3
 
 # Funções
 
+def cria_tabela_estudantes(conn, cursor):
+    query = """
+        CREATE TABLE IF NOT EXISTS Estudantes (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Nome TEXT NOT NULL,
+            Curso TEXT NOT NULL,
+            AnoIngresso INTEGER NOT NULL
+        );
+    """
+
+    cursor.execute(query)
+
+def insere_novo_registro(conn, cursor, estudantes, nome, curso, ano_de_ingresso):
+    query = ("""
+        INSERT INTO Estudantes (Nome, Curso, AnoIngresso)
+        VALUES (?, ?, ?);
+    """, estudantes)
+
+    cursor.execute(query, (nome, curso, ano_de_ingresso))
+
 def filtra_por_ano_de_ingresso(conn, cursor, ano1, ano2):
     query = "SELECT * FROM Estudantes WHERE (AnoIngresso >= ? and AnoIngresso <= ?)"
 
